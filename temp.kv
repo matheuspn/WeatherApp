@@ -1,0 +1,39 @@
+# Custom TextUnput
+<CustText@TextInput>:
+    font_size: 16
+    size_hint: (1, 0.25)
+    #height: 30
+    pos_hint: {"center_y": 0.5 }
+    multiline: False
+
+<TempGrid>:
+    id: temp
+    rows: 3
+    padding: 10
+    canvas.before:
+        Color:
+            rgba: .35, .35, .35, 0.5
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        Label:
+            text: "Country"
+        CustText:
+            id: country
+            multiline: False
+    BoxLayout:
+        Label:
+            text: "City"
+        CustText:
+            id: city
+            multiline: False
+    BoxLayout:
+        Label:
+            text: ""
+        Button:
+            size_hint: (1, 0.35)
+            pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
+            text: "Search"
+            on_press: root.button_press(country.text, city.text)
