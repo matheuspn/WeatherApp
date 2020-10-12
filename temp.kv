@@ -2,14 +2,15 @@
 <CustText@TextInput>:
     font_size: 16
     size_hint: (1, 0.25)
-    #height: 30
     pos_hint: {"center_y": 0.5 }
     multiline: False
 
 <TempGrid>:
+    show: show
+
     id: temp
     rows: 3
-    padding: 10
+    padding: 2.5
     canvas.before:
         Color:
             rgba: .35, .35, .35, 0.5
@@ -31,7 +32,8 @@
             multiline: False
     BoxLayout:
         Label:
-            text: ""
+            id: show
+            text: " "
         Button:
             size_hint: (1, 0.35)
             pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }

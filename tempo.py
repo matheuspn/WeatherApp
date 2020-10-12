@@ -3,9 +3,11 @@ from kivy.app import App
 from kivy.config import Config
 from kivy.uix.gridlayout import GridLayout
 from kivy.network.urlrequest import UrlRequest
+from kivy.properties import ObjectProperty
 
 import json
 import requests
+import urllib.parse
 
 
 kivy.require('1.11.1') 
@@ -15,31 +17,39 @@ Config.set('graphics', 'resizable', 1)
 Config.set('graphics', 'width', '300') 
 Config.set('graphics', 'height', '400') 
 
+# getting the api key
 with open("apikey.txt") as f:
     openweatherkey = f.read()
 
-def weather(response):
-    print("OK")
-    weatherdict = json.loads(response)
-    with open("testefile.txt", "a") as f:
-        for key, value in weatherdict.items():
-            f.write('{}: {}'.format(key, value))
-    print(weatherdict["weather"])
-
-def falha(req, erro):
-    print(erro)
-
 class TempGrid(GridLayout):
+
+    show = ObjectProperty(None)
 
     global openweatherkey
 
     def button_press(self, country, city):
-        response = requests.post(f"https://api.openweathermap.org/data/2.5/weather?q={city},{country}&units=metric&appid={openweatherkey}")
-        print("B")
-        print("Resposta : ",response.text)
-        weather(response.text)
-        
 
+        url = (f"https://api.openweathermap.org/data/2.5/weather?q={city},{country}&units=metric&appid={openweatherkey}")
+
+        UrlRequest(url,on_success=self.answer, on_error=self.urlfail)
+
+    # the response of Urlrequest
+    def answer(self, req, result):
+
+        # for test purpose
+        with open("testefile.txt", "a") as f:
+            for key, value in result.items():
+                f.write(f'{key}: {value} ')
+            f.write('\n')
+        print(result, "\n")
+        print(result["weather"], "\n")
+        print("Urlrequest working correctly!")
+        print(result["main"]["temp"])
+        self.show.text = str(result["main"]["temp"]) + ' °C'
+
+    # if Urlrequest fail
+    def urlfail(self, req, error):
+        print("Urlrequest don't working correctly", error)
 
 class TempApp(App):
     def build(self):
