@@ -102,3 +102,6 @@ apikey.txt
 # testing things
 testefile.txt
 teste.py
+
+# city list
+city.list.json
