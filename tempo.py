@@ -7,7 +7,7 @@ from kivy.properties import ObjectProperty
 
 import json
 import requests
-import urllib.parse
+from urllib.parse import quote
 
 
 kivy.require('1.11.1') 
@@ -29,8 +29,9 @@ class TempGrid(GridLayout):
 
     def button_press(self, country, city):
 
-        url = (f"https://api.openweathermap.org/data/2.5/weather?q={city},{country}&units=metric&appid={openweatherkey}")
-
+        url = quote(f"https://api.openweathermap.org/data/2.5/weather?q={city},{country}&units=metric&appid={openweatherkey}",
+                    safe= ':,/,=,&,?')
+        print(url)
         UrlRequest(url,on_success=self.answer, on_error=self.urlfail)
 
     # the response of Urlrequest
@@ -45,6 +46,8 @@ class TempGrid(GridLayout):
         print(result["weather"], "\n")
         print("Urlrequest working correctly!")
         print(result["main"]["temp"])
+
+        # print the current temperature in the screen
         self.show.text = str(result["main"]["temp"]) + ' °C'
 
     # if Urlrequest fail
