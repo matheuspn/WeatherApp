@@ -1,41 +1,99 @@
+<ScreenManagement>:
+    MainScreen:
+        id: main
+    InfoScreen:
+        id: info
+
+
 # Custom TextUnput
 <CustText@TextInput>:
     font_size: 16
-    size_hint: (1, 0.25)
+    size_hint: (1, 0.30)
     pos_hint: {"center_y": 0.5 }
     multiline: False
 
-<TempGrid>:
+<MainScreen>:
+    name: 'main'
     show: show
+    GridLayout:
+        rows: 4
+        padding: 2.5
+        canvas.before:
+            Color:
+                rgba: .35, .35, .35, 0.5
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
-    id: temp
-    rows: 3
-    padding: 2.5
-    canvas.before:
-        Color:
-            rgba: .35, .35, .35, 0.5
-        Rectangle:
-            pos: self.pos
-            size: self.size
+        BoxLayout:
+            Label:
+                text: "Country"
+            CustText:
+                id: country
+                multiline: False
+        BoxLayout:
+            Label:
+                text: "City"
+            CustText:
+                id: city
+                multiline: False
+        BoxLayout:
+            Label:
+                id: show
+                text: " "
+            Button:
+                size_hint: (1, 0.35)
+                pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
+                text: "Search"
+                on_press: root.search_button(country.text, city.text)
+        GridLayout:
+            cols: 2
+            BoxLayout:
+                Label:
+                    text: ""
+            BoxLayout:
+                Button:
+                    size_hint: (1, 0.35)
+                    pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
+                    text: "More info >>"
+                    on_press:
+                        root.manager.transition.direction = 'left'
+                        root.manager.current = 'info'
 
-    BoxLayout:
+<InfoScreen>:
+    name: 'info'
+    desc_image: desc_image
+    description: description
+    GridLayout:
+        rows: 4
+        padding: 2.5
+        canvas.before:
+            Color:
+                rgba: .35, .35, .35, 0.5
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            AsyncImage:
+                id: desc_image
+                source: "images/description_img.png"
+                size: self.texture_size
+            Label:
+                id: description
+                text: " "
+
         Label:
-            text: "Country"
-        CustText:
-            id: country
-            multiline: False
-    BoxLayout:
-        Label:
-            text: "City"
-        CustText:
-            id: city
-            multiline: False
-    BoxLayout:
-        Label:
-            id: show
             text: " "
-        Button:
-            size_hint: (1, 0.35)
-            pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
-            text: "Search"
-            on_press: root.button_press(country.text, city.text)
+        Label:
+            text:" "
+        BoxLayout:
+            Button:
+                text: "  <<  "
+                size_hint: (1, 0.35)
+                pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'main'
+            Label:
+                text: " "
