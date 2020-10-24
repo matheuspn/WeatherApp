@@ -42,9 +42,7 @@ class MainScreen(Screen):
 
     # the response of Urlrequest
     def answer(self, req, result):
-
-        print(result)
-
+        
         # print the current temperature in the screen
         self.show.text = str(result["main"]["temp"]) + ' °C'
 
