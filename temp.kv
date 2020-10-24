@@ -4,7 +4,6 @@
     InfoScreen:
         id: info
 
-
 # Custom TextUnput
 <CustText@TextInput>:
     font_size: 16
@@ -20,19 +19,20 @@
         padding: 2.5
         canvas.before:
             Color:
-                rgba: .35, .35, .35, 0.5
+                rgba: [0.15, 0.15, 0.15, 1]
             Rectangle:
-                pos: self.pos
                 size: self.size
-
+                pos: self.pos
         BoxLayout:
             Label:
+                color: [1, 1, 1, 1]
                 text: "Country"
             CustText:
                 id: country
                 multiline: False
         BoxLayout:
             Label:
+                color: [1, 1, 1, 1]
                 text: "City"
             CustText:
                 id: city
@@ -40,6 +40,7 @@
         BoxLayout:
             Label:
                 id: show
+                color: [1, 1, 1, 1]
                 text: " "
             Button:
                 size_hint: (1, 0.35)
@@ -69,11 +70,10 @@
         padding: 2.5
         canvas.before:
             Color:
-                rgba: .35, .35, .35, 0.5
+                rgba: [0.15, 0.15, 0.15, 1]
             Rectangle:
-                pos: self.pos
                 size: self.size
-
+                pos: self.pos
         BoxLayout:
             AsyncImage:
                 id: desc_image
@@ -81,12 +81,21 @@
                 size: self.texture_size
             Label:
                 id: description
+                color: [1, 1, 1, 1]
                 text: " "
-
-        Label:
-            text: " "
-        Label:
-            text:" "
+        BoxLayout:
+            BoxLayout:
+                Label:
+                    text: "Min"
+                Label:
+                    id: min_temp
+                    text: " "
+            BoxLayout:
+                Label:
+                    text: "Max"
+                Label:
+                    id: max_temp
+                    text: " "
         BoxLayout:
             Button:
                 text: "  <<  "

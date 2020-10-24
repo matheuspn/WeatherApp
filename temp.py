@@ -26,6 +26,10 @@ class MainScreen(Screen):
     image_icon : str 
     image_url : str 
     path = "images/description_img.png"
+    countrys = list()
+
+    with open("lists/country.list.txt", 'r' ,encoding='utf-8') as f:
+        countrys = f.read().rsplit()
 
     global openweatherkey
 
@@ -39,8 +43,14 @@ class MainScreen(Screen):
     # the response of Urlrequest
     def answer(self, req, result):
 
+        print(result)
+
         # print the current temperature in the screen
         self.show.text = str(result["main"]["temp"]) + ' °C'
+
+        # print the min and the max temp in the info screen
+        self.manager.ids.info.ids.min_temp.text = str(result["main"]["temp_min"]) + ' °C'
+        self.manager.ids.info.ids.max_temp.text = str(result["main"]["temp_max"]) + ' °C'
         
         # get the description 
         self.manager.ids.info.ids.description.text = str(result["weather"][0]["description"])

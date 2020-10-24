@@ -103,5 +103,8 @@ apikey.txt
 testefile.txt
 teste.py
 
-# city list
-city.list.json
+# lists
+lists/
+
+#images
+images/
