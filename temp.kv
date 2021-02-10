@@ -4,9 +4,9 @@
     InfoScreen:
         id: info
 
-# Custom TextUnput
-<CustText@TextInput>:
-    font_size: 16
+# Custom TextInput
+<CustText@MDTextField>:
+    font_size: "16sp"
     size_hint: (1, 0.30)
     pos_hint: {"center_y": 0.5 }
     multiline: False
@@ -14,46 +14,43 @@
 <MainScreen>:
     name: 'main'
     show: show
-    GridLayout:
+    MDGridLayout:
         rows: 4
         padding: 2.5
-        canvas.before:
-            Color:
-                rgba: [0.15, 0.15, 0.15, 1]
-            Rectangle:
-                size: self.size
-                pos: self.pos
-        BoxLayout:
-            Label:
-                color: [1, 1, 1, 1]
+        MDBoxLayout:
+            MDLabel:
+                halign: "center"
                 text: "Country"
             CustText:
                 id: country
-                multiline: False
-        BoxLayout:
-            Label:
-                color: [1, 1, 1, 1]
+                hint_text: "Country"
+        MDBoxLayout:
+            MDLabel:
+                halign: "center"
                 text: "City"
             CustText:
                 id: city
-                multiline: False
-        BoxLayout:
-            Label:
+                hint_text: "City"
+        MDBoxLayout:
+            MDLabel:
+                halign: "center"
                 id: show
-                color: [1, 1, 1, 1]
                 text: " "
-            Button:
+            MDRaisedButton:
+                md_bg_color: app.theme_cls.primary_dark
                 size_hint: (1, 0.35)
                 pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
                 text: "Search"
                 on_press: root.search_button(country.text, city.text)
-        GridLayout:
+        MDGridLayout:
             cols: 2
-            BoxLayout:
-                Label:
+            MDBoxLayout:
+                MDLabel:
+                    halign: "center"
                     text: ""
-            BoxLayout:
-                Button:
+            MDBoxLayout:
+                MDRaisedButton:
+                    md_bg_color: app.theme_cls.primary_dark
                     size_hint: (1, 0.35)
                     pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
                     text: "More info >>"
@@ -65,44 +62,44 @@
     name: 'info'
     desc_image: desc_image
     description: description
-    GridLayout:
+    MDGridLayout:
         rows: 4
         padding: 2.5
-        canvas.before:
-            Color:
-                rgba: [0.15, 0.15, 0.15, 1]
-            Rectangle:
-                size: self.size
-                pos: self.pos
-        BoxLayout:
+        MDBoxLayout:
             AsyncImage:
                 id: desc_image
                 source: "images/description_img.png"
                 size: self.texture_size
-            Label:
+            MDLabel:
+                halign: "center"
                 id: description
-                color: [1, 1, 1, 1]
                 text: " "
-        BoxLayout:
-            BoxLayout:
-                Label:
+        MDBoxLayout:
+            MDBoxLayout:
+                MDLabel:
+                    halign: "center"
                     text: "Min"
-                Label:
+                MDLabel:
+                    halign: "center"
                     id: min_temp
                     text: " "
-            BoxLayout:
-                Label:
+            MDBoxLayout:
+                MDLabel:
+                    halign: "center"
                     text: "Max"
-                Label:
+                MDLabel:
+                    halign: "center"
                     id: max_temp
                     text: " "
-        BoxLayout:
-            Button:
+        MDBoxLayout:
+            MDRaisedButton:
+                md_bg_color: app.theme_cls.primary_dark
                 text: "  <<  "
                 size_hint: (1, 0.35)
                 pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
                 on_press:
                     root.manager.transition.direction = 'right'
                     root.manager.current = 'main'
-            Label:
+            MDLabel:
+                halign: "center"
                 text: " "

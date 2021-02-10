@@ -1,26 +1,20 @@
 import kivy
-from kivy.app import App
+from kivymd.app import MDApp
 from kivy.config import Config
-from kivy.uix.gridlayout import GridLayout
 from kivy.network.urlrequest import UrlRequest
 from kivy.properties import ObjectProperty
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager
+from kivymd.uix.screen import MDScreen
 
 from urllib.parse import quote
 
-
-kivy.require('1.11.1') 
-
-# Setting size to resizable 
-Config.set('graphics', 'resizable', 1) 
-Config.set('graphics', 'width', '300') 
-Config.set('graphics', 'height', '450') 
+kivy.require('2.0.0') 
 
 # getting the api key
 with open("apikey.txt") as f:
     openweatherkey = f.read()
 
-class MainScreen(Screen):
+class MainScreen(MDScreen):
 
     show = ObjectProperty(None)
     image_icon : str 
@@ -74,15 +68,16 @@ class MainScreen(Screen):
         self.manager.ids.info.ids.desc_image.reload()
 
 
-class InfoScreen(Screen):
+class InfoScreen(MDScreen):
     pass
 
 
 class ScreenManagement(ScreenManager):
     pass
 
-class TempApp(App):
+class TempApp(MDApp):
     def build(self):
+        self.theme_cls.theme_style = "Dark"
         return ScreenManagement()
 
 if __name__ == "__main__":
