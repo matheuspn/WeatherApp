@@ -7,17 +7,23 @@
 # Custom TextInput
 <CustText@MDTextField>:
     font_size: "16sp"
-    size_hint: (1, 0.30)
+    size_hint: 1, 0.30
     pos_hint: {"center_y": 0.5 }
     multiline: False
 
 <MainScreen>:
     name: 'main'
     show: show
-    MDGridLayout:
-        rows: 4
-        padding: 2.5
+
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        MDToolbar:
+            title: "WeatherApp"
+            md_bg_color: app.theme_cls.primary_dark
+        
         MDBoxLayout:
+            padding: "15dp"
             MDLabel:
                 halign: "center"
                 text: "Country"
@@ -25,6 +31,7 @@
                 id: country
                 hint_text: "Country"
         MDBoxLayout:
+            padding: "15dp"
             MDLabel:
                 halign: "center"
                 text: "City"
@@ -32,39 +39,47 @@
                 id: city
                 hint_text: "City"
         MDBoxLayout:
+            padding: "15dp"
             MDLabel:
                 halign: "center"
                 id: show
                 text: " "
+                
             MDRaisedButton:
                 md_bg_color: app.theme_cls.primary_dark
-                size_hint: (1, 0.35)
-                pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
+                size_hint: 0.35, None
+                height: "45dp"
+                pos_hint: {"center_y": 0.5, "center_x": 0.5 }
                 text: "Search"
                 on_press: root.search_button(country.text, city.text)
-        MDGridLayout:
-            cols: 2
-            MDBoxLayout:
-                MDLabel:
-                    halign: "center"
-                    text: ""
-            MDBoxLayout:
-                MDRaisedButton:
-                    md_bg_color: app.theme_cls.primary_dark
-                    size_hint: (1, 0.35)
-                    pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
-                    text: "More info >>"
-                    on_press:
-                        root.manager.transition.direction = 'left'
-                        root.manager.current = 'info'
+        MDBoxLayout:
+            orientation: 'horizontal'
+            padding: "15dp"
+            
+            Widget:
+
+            MDRaisedButton:
+                md_bg_color: app.theme_cls.primary_dark
+                size_hint: 0.35, None
+                height: "45dp"
+                pos_hint: {"center_y": 0.5, "center_x": 0.5 }
+                text: "More info >>"
+                on_press:
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'info'
 
 <InfoScreen>:
     name: 'info'
     desc_image: desc_image
     description: description
-    MDGridLayout:
-        rows: 4
-        padding: 2.5
+
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        MDToolbar:
+            title: "WeatherApp"
+            md_bg_color: app.theme_cls.primary_dark
+
         MDBoxLayout:
             AsyncImage:
                 id: desc_image
@@ -92,14 +107,15 @@
                     id: max_temp
                     text: " "
         MDBoxLayout:
+            padding: "15dp"
             MDRaisedButton:
                 md_bg_color: app.theme_cls.primary_dark
                 text: "  <<  "
-                size_hint: (1, 0.35)
+                height: "45dp"
+                size_hint: 0.35, None
                 pos_hint: {"center_x": 0.5 ,"center_y": 0.5 }
                 on_press:
                     root.manager.transition.direction = 'right'
                     root.manager.current = 'main'
-            MDLabel:
-                halign: "center"
-                text: " "
+            
+            Widget:
